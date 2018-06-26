@@ -59,3 +59,12 @@ typings/
 
 # next.js build output
 .next
+
+# Visual Studio files
+.vs
+
+# VSS extension packages
+*.vsix
+
+# Distribution files
+dist

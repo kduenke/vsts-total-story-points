@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>App</title>
+
+    <link rel="stylesheet" href="dist/styles.css">
+
+    <script src="lib/VSS.SDK.min.js"></script>
+    <script>
+        VSS.init({
+            explicitNotifyLoaded: true,
+            usePlatformScripts: true,
+            usePlatformStyles: true
+        });
+
+        VSS.require(["dist/app"], function (app) {
+            app.getData();
+            //document.getElementById("show-totals-backlog-panel-totals").textContent = app.getData(); 
+            VSS.notifyLoadSucceeded();
+        });
+    </script>
+</head>
+<body id="show-totals-backlog-panel">
+    <h2>Backlog Totals</h2>
+    <div id="show-totals-backlog-panel-totals"></div>
+</body>
+</html>

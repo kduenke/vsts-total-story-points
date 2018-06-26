@@ -1,0 +1,50 @@
+{
+  "manifestVersion": 1,
+  "id": "vsts-total-story-points",
+  "publisher": "kduenke",
+  "version": "0.0.23",
+  "name": "Total Story Points",
+  "description": "A Visual Studio Team Services extension to display story point totals.",
+  "public": false,
+  "targets": [
+    {
+      "id": "Microsoft.VisualStudio.Services"
+    }
+  ],
+  "icons": {
+    "default": "images/icon.png"
+  },
+  "scopes": [
+    "vso.work"
+  ],
+  "contributions": [
+    {
+      "id": "show-totals-backlog-panel",
+      "type": "ms.vss-work-web.backlog-panel",
+      "targets": [
+        "ms.vss-work-web.iteration-backlog-toolpane",
+        "ms.vss-work-web.requirement-backlog-toolpane"
+      ],
+      "properties": {
+        "title": "Show totals",
+        "name": "Show totals",
+        "uri": "index.html"
+      }
+    }
+  ],
+  "files": [
+    {
+      "path": "index.html",
+      "addressable": true
+    },
+    {
+      "path": "dist",
+      "addressable": true
+    },
+    {
+      "path": "node_modules/vss-web-extension-sdk/lib",
+      "addressable": true,
+      "packagePath": "lib"
+    }
+  ]
+}
