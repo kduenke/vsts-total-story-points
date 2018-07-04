@@ -1,25 +1,34 @@
-import Contracts = require("TFS/Work/Contracts");
-import RestClientDefinitions = require("TFS/Work/RestClient");
-import { TeamContext } from "TFS/Core/Contracts";
+import Contracts = require("TFS/WorkItemTracking/Contracts");
+import RestClient = require("TFS/WorkItemTracking/RestClient");
 import { WebContext } from "VSS/Common/Contracts/Platform";
 
 export function getData(): void {
-    VSS.require(["TFS/Work/RestClient"], (RestClientService) => {
+    VSS.require(["TFS/WorkItemTracking/RestClient"], (RestClientModule) => {
         let context: WebContext = VSS.getWebContext();
-        let teamContext: TeamContext = {
-            projectId: context.project.id,
-            project: context.project.name,
-            teamId: context.team.id,
-            team: context.team.name
+        let client: RestClient.WorkItemTrackingHttpClient5 =
+            <RestClient.WorkItemTrackingHttpClient5>RestClientModule.getClient();
+        let wiql: Contracts.Wiql = {
+            query: `SELECT [Microsoft.VSTS.Scheduling.StoryPoints]
+                          FROM workitems
+                         WHERE [System.IterationPath] = @CurrentIteration`
         };
 
-        let client: RestClientDefinitions.WorkHttpClient5 =
-            <RestClientDefinitions.WorkHttpClient5>RestClientService.getClient();
+        client.queryByWiql(wiql, context.project.id, context.team.id).then(
+            (results: Contracts.WorkItemQueryResult) => {
+                return results.workItems || null;
+            }).then((workItems: Contracts.WorkItemReference[]) => {
+                if (workItems) {
+                    let ids: number[] = workItems.map(workItem => workItem.id);
+                    let fields: string[] = ["Microsoft.VSTS.Scheduling.StoryPoints"];
 
-        client.getTeamIterations(teamContext).then((iterations: Contracts.TeamSettingsIteration[]) => {
-            for (let iteration of iterations) {
-                console.log(iteration.name);
-            }
-        });
+                    client.getWorkItems(ids, fields).then((workItems: Contracts.WorkItem[]) => {
+                        let totalStoryPoints: number = workItems
+                            .map(workItem => parseInt(workItem.fields["Microsoft.VSTS.Scheduling.StoryPoints"]))
+                            .reduce((a, b) => a + b);
+
+                        console.log(`Total Story Points: ${totalStoryPoints}`);
+                    });
+                }
+            });
     });
 }
