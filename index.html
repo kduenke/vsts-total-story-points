@@ -14,15 +14,13 @@
             usePlatformStyles: true
         });
 
-        VSS.require(["dist/app"], function (app) {
-            app.getData();
-            //document.getElementById("show-totals-backlog-panel-totals").textContent = app.getData(); 
+        VSS.require(["dist/app"], function () {
             VSS.notifyLoadSucceeded();
         });
     </script>
 </head>
 <body id="show-totals-backlog-panel">
-    <h2 id="show-totals-backlog-panel-title"></h2>
-    <div id="show-totals-backlog-panel-totals"></div>
+    <h2>Current Iteration Story Point Total</h2>
+    <h2 id="show-totals-backlog-panel-total"></h2>
 </body>
 </html>

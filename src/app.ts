@@ -2,7 +2,7 @@ import Contracts = require("TFS/WorkItemTracking/Contracts");
 import RestClient = require("TFS/WorkItemTracking/RestClient");
 import { WebContext } from "VSS/Common/Contracts/Platform";
 
-export function getData(): void {
+(function getCurrentIterationTotalStoryPoints(): void {
     VSS.require(["TFS/WorkItemTracking/RestClient"], (RestClientModule) => {
         let context: WebContext = VSS.getWebContext();
         let client: RestClient.WorkItemTrackingHttpClient5 =
@@ -10,11 +10,13 @@ export function getData(): void {
         let wiql: Contracts.Wiql = {
             query: `SELECT [Microsoft.VSTS.Scheduling.StoryPoints]
                           FROM workitems
-                         WHERE [System.IterationPath] = @CurrentIteration`
+                         WHERE [System.IterationPath] = @CurrentIteration
+                           AND [System.WorkItemType] = "User Story"
+                           AND [Microsoft.VSTS.Scheduling.StoryPoints] > 0`
         };
 
-        client.queryByWiql(wiql, context.project.id, context.team.id).then(
-            (results: Contracts.WorkItemQueryResult) => {
+        client.queryByWiql(wiql, context.project.id, context.team.id)
+            .then((results: Contracts.WorkItemQueryResult) => {
                 return results.workItems || null;
             }).then((workItems: Contracts.WorkItemReference[]) => {
                 if (workItems) {
@@ -26,9 +28,10 @@ export function getData(): void {
                             .map(workItem => parseInt(workItem.fields["Microsoft.VSTS.Scheduling.StoryPoints"]))
                             .reduce((a, b) => a + b);
 
-                        console.log(`Total Story Points: ${totalStoryPoints}`);
+                        let element: HTMLElement = document.getElementById("show-totals-backlog-panel-total");
+                        element.innerText = totalStoryPoints.toString();
                     });
                 }
             });
     });
-}
+})();
