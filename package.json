@@ -1,11 +1,11 @@
 {
   "name": "vsts-total-story-points",
-  "version": "0.0.34",
+  "version": "0.0.39",
   "description": "A Visual Studio Team Services extension to display story point totals.",
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node-sass src/ -o dist/ && tsc -p .",
+    "build": "tsc -p .",
     "postbuild": "npm run package",
     "package": "tfx extension create",
     "gallery-publish": "tfx extension publish --rev-version",
@@ -26,7 +26,6 @@
     "vss-web-extension-sdk": "^5.134.0"
   },
   "devDependencies": {
-    "node-sass": "^4.9.0",
     "rimraf": "^2.6.2",
     "tfx-cli": "^0.5.10",
     "typescript": "^2.9.2"

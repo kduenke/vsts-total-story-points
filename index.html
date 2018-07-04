@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <title>App</title>
 
-    <link rel="stylesheet" href="dist/styles.css">
-
     <script src="lib/VSS.SDK.min.js"></script>
     <script>
         VSS.init({
@@ -14,13 +12,17 @@
             usePlatformStyles: true
         });
 
-        VSS.require(["dist/app"], function () {
+        VSS.require(["TFS/Dashboards/WidgetHelpers", "dist/app"], function (WidgetHelpers, app) {
+            WidgetHelpers.IncludeWidgetStyles();
             VSS.notifyLoadSucceeded();
         });
     </script>
 </head>
-<body id="show-totals-backlog-panel">
-    <h2>Current Iteration Story Point Total</h2>
-    <h2 id="show-totals-backlog-panel-total"></h2>
+<body>
+    <div class="widget">
+        <h2 class="title">Story Points</h2>
+        <div id="show-totals-backlog-panel-total" class="big-count"></div>
+        <div>Current iteration total story points.</div>
+    </div>
 </body>
 </html>
