@@ -1,6 +1,6 @@
 {
   "name": "vsts-total-story-points",
-  "version": "0.0.39",
+  "version": "0.0.60",
   "description": "A Visual Studio Team Services extension to display story point totals.",
   "main": "index.html",
   "scripts": {

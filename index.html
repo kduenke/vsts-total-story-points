@@ -12,10 +12,19 @@
             usePlatformStyles: true
         });
 
-        VSS.require(["TFS/Dashboards/WidgetHelpers", "dist/app"], function (WidgetHelpers, app) {
-            WidgetHelpers.IncludeWidgetStyles();
-            VSS.notifyLoadSucceeded();
-        });
+        VSS.require(["TFS/Dashboards/WidgetHelpers", "TFS/WorkItemTracking/RestClient", "dist/app"],
+            function (WidgetHelpers, RestClientModule, app) {
+                WidgetHelpers.IncludeWidgetStyles();
+
+                app.RegisterForEvents();
+                app.GetCurrentIterationTotalStoryPoints(RestClientModule.getClient())
+                    .then(function (totalStoryPoints) {
+                        let element = document.getElementById("show-totals-backlog-panel-total");
+                        element.innerHTML = totalStoryPoints.toString();
+
+                        VSS.notifyLoadSucceeded();
+                    });
+            });
     </script>
 </head>
 <body>
