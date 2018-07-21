@@ -1,0 +1,1 @@
+This widget styled panel can be used to display total story points for the current iteration.

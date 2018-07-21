@@ -15,7 +15,8 @@ export function GetCurrentIterationTotalStoryPoints(client: RestClient.WorkItemT
     return client.queryByWiql(wiql, context.project.id, context.team.id)
         .then((results: Contracts.WorkItemQueryResult) => {
             return results.workItems;
-        }).then((workItems: Contracts.WorkItemReference[]) => {
+        })
+        .then((workItems: Contracts.WorkItemReference[]) => {
             if (workItems.length > 0) {
                 let ids: number[] = workItems.map(workItem => workItem.id);
                 let fields: string[] = ["Microsoft.VSTS.Scheduling.StoryPoints"];
@@ -29,9 +30,10 @@ export function GetCurrentIterationTotalStoryPoints(client: RestClient.WorkItemT
             } else {
                 return 0;
             }
-        });
-}
+        }, (rejected: any) => {
+            let message = rejected.message || rejected;
+            console.error(message);
 
-export function RegisterForEvents(): void {
-    console.log("Yeah!!");
+            return 0;
+        });
 }

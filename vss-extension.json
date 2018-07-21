@@ -2,10 +2,10 @@
   "manifestVersion": 1,
   "id": "vsts-total-story-points",
   "publisher": "kduenke",
-  "version": "0.0.60",
+  "version": "1.0.0",
   "name": "Total Story Points",
-  "description": "A Visual Studio Team Services extension to display story point totals.",
-  "public": false,
+  "description": "A Visual Studio Team Services extension to display total story points for the current iteration.",
+  "public": true,
   "targets": [
     {
       "id": "Microsoft.VisualStudio.Services"
@@ -13,6 +13,11 @@
   ],
   "icons": {
     "default": "images/icon.png"
+  },
+  "content": {
+    "details": {
+      "path": "content/overview.md"
+    }
   },
   "scopes": [
     "vso.work"
@@ -39,11 +44,12 @@
       "packagePath": "lib"
     },
     {
-      "path": "dist",
-      "addressable": true
+      "path": "content",
+      "addressable": true,
+      "packagePath": "/"
     },
     {
-      "path": "index.html",
+      "path": "dist",
       "addressable": true
     }
   ]

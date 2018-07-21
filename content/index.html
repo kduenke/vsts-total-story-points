@@ -12,11 +12,10 @@
             usePlatformStyles: true
         });
 
-        VSS.require(["TFS/Dashboards/WidgetHelpers", "TFS/WorkItemTracking/RestClient", "dist/app"],
-            function (WidgetHelpers, RestClientModule, app) {
+        VSS.require(["dist/app", "TFS/Dashboards/WidgetHelpers", "TFS/WorkItemTracking/RestClient"],
+            function (app, WidgetHelpers, RestClientModule) {
                 WidgetHelpers.IncludeWidgetStyles();
 
-                app.RegisterForEvents();
                 app.GetCurrentIterationTotalStoryPoints(RestClientModule.getClient())
                     .then(function (totalStoryPoints) {
                         let element = document.getElementById("show-totals-backlog-panel-total");
