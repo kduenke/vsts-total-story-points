@@ -2,7 +2,7 @@
   "manifestVersion": 1,
   "id": "vsts-total-story-points",
   "publisher": "kduenke",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "name": "Total Story Points",
   "description": "A Visual Studio Team Services extension to display total story points for the current iteration.",
   "public": true,
@@ -21,6 +21,9 @@
   },
   "scopes": [
     "vso.work"
+  ],
+  "categories": [
+    "Boards"
   ],
   "contributions": [
     {
