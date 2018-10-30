@@ -1,6 +1,6 @@
 {
   "name": "vsts-total-story-points",
-  "version": "1.0.1",
+  "version": "1.2.0",
   "description": "A Visual Studio Team Services extension to display total story points for the current iteration.",
   "main": "index.html",
   "scripts": {
@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "rimraf": "^2.6.2",
-    "tfx-cli": "^0.5.10",
+    "tfx-cli": "^0.6.3",
     "typescript": "^2.9.2"
   }
 }
